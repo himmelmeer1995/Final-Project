@@ -2,7 +2,9 @@
 title: ''
 output: html_document
 ---
+##觀察過去十年的台灣人最常去的地方
 
+Step 1. 將大由下載的資料依照年份分好，觀察過去10年的資料(民國95年-104年)
 ```{r setup, include=FALSE}
 library(readr)
 library(dplyr)
@@ -47,7 +49,12 @@ TW95 <- arrange(TW95,desc(`number of visitors`))
 top10_TW95 <- TW95 [c(2,3,4,6,7,8,9,11,12,13),]
 
 top10_TW <- rbind(top10_TW95,top10_TW96,top10_TW97,top10_TW98,top10_TW99,top10_TW100,top10_TW101,top10_TW102,top10_TW103,top10_TW104)
+```
 
+Step 2. 畫成圖來觀察
+```{r}
+library(readr)
+library(dplyr)
 TOP10_TW <- data.frame (c(top10_TW95$Location),c(top10_TW96$Location),c(top10_TW97$Location),c(top10_TW98$Location),c(top10_TW99$Location),c(top10_TW100$Location),c(top10_TW101$Location),c(top10_TW102$Location),c(top10_TW103$Location),c(top10_TW104$Location))
 TOP10_TW <- t(TOP10_TW)
 rownames(TOP10_TW) = 95:104
@@ -65,4 +72,12 @@ gp=ggplot(top10_TW,mapping = aes(x=Year, y=`number of visitors`))+
 ggplotly(gp)
 
 ```
+發現：
+民國96年(2007)以前，台灣每年去中國的人數，甚至沒有在前十名。97年(2008)開始成為第8名<18萬>後，從98年(2009)開始，去中國的人數<151萬>暴增，相對的去港、澳的人數下降。
 
+原因待探究......(明天繼續)
+(猜測方向：直飛航班增加?) 
+想知道多了這麼多人是為什麼? 然後大家都去做什麼? 這項結果對我們的政治、社會、經濟有沒有什麼其他影響?
+另外突然想到，這會不會是因為本資料來源是出境資料(待確定)，所以它搞不好是反應有一堆中國人從那個時間點之後大量來台灣(開放自由行?)然後又回去，所以才會突然爆大量。
+
+p.s. 感覺可以往前再做十年，看看還有沒有什麼發現
