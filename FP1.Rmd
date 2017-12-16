@@ -1,0 +1,68 @@
+---
+title: ''
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(readr)
+library(dplyr)
+TW104 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW104.csv")
+TW104 <- arrange(TW104,desc(`number of visitors`))
+top10_TW104 <- TW104 [c(3,4,5,7,10,11,12,13,14,15),]
+
+TW103 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW103.csv")
+TW103 <- arrange(TW103,desc(`number of visitors`))
+top10_TW103 <- TW103 [c(3,4,5,7,10,11,12,13,14,15),]
+
+TW102 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW102.csv")
+TW102 <- arrange(TW102,desc(`number of visitors`))
+top10_TW102 <- TW102 [c(3,4,5,7,8,9,11,13,14,15),]
+
+TW101 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW101.csv")
+TW101 <- arrange(TW101,desc(`number of visitors`))
+top10_TW101 <- TW101 [c(3,4,6,8,9,11,12,13,14,17),]
+
+TW100 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW100.csv")
+TW100 <- arrange(TW100,desc(`number of visitors`))
+top10_TW100 <- TW100 [c(3,4,6,7,10,11,12,13,16,17),]
+
+TW99 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW99.csv")
+TW99 <- arrange(TW99,desc(`number of visitors`))
+top10_TW99 <- TW99 [c(3,4,6,7,10,11,12,13,14,15),]
+
+TW98 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW98.csv")
+TW98 <- arrange(TW98,desc(`number of visitors`))
+top10_TW98 <- TW98 [c(3,4,6,7,10,11,12,13,16,17),]
+
+TW97 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW97.csv")
+TW97 <- arrange(TW97,desc(`number of visitors`))
+top10_TW97 <- TW97 [c(3,4,6,10,11,12,13,16,17,18),]
+
+TW96 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW96.csv")
+TW96 <- arrange(TW96,desc(`number of visitors`))
+top10_TW96 <- TW96 [c(2,3,4,6,7,8,9,10,12,13),]
+
+TW95 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW95.csv")
+TW95 <- arrange(TW95,desc(`number of visitors`))
+top10_TW95 <- TW95 [c(2,3,4,6,7,8,9,11,12,13),]
+
+top10_TW <- rbind(top10_TW95,top10_TW96,top10_TW97,top10_TW98,top10_TW99,top10_TW100,top10_TW101,top10_TW102,top10_TW103,top10_TW104)
+
+TOP10_TW <- data.frame (c(top10_TW95$Location),c(top10_TW96$Location),c(top10_TW97$Location),c(top10_TW98$Location),c(top10_TW99$Location),c(top10_TW100$Location),c(top10_TW101$Location),c(top10_TW102$Location),c(top10_TW103$Location),c(top10_TW104$Location))
+TOP10_TW <- t(TOP10_TW)
+rownames(TOP10_TW) = 95:104
+colnames(TOP10_TW) = 1:10
+show(TOP10_TW)
+
+library(ggplot2)
+library(plotly)
+gp=ggplot(top10_TW,mapping = aes(x=Year, y=`number of visitors`))+
+    geom_line(mapping = aes(color=Location))+
+    scale_x_continuous(limits=c(95,104) ,breaks=95:104)+
+    scale_y_continuous(limits=c(150000,3800000))+
+    labs(title = "95-104 台灣人最常去的國家")
+    
+ggplotly(gp)
+
+```
+
