@@ -1,83 +1,177 @@
 ---
 title: ''
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 ---
-## 觀察過去十年台灣人最常去的地方(民國95年-104年)
 
-Step 1. 將大由下載的資料依照年份分好，觀察過去10年的資料(民國95年-104年)
-```{r setup, include=FALSE}
-library(readr)
-library(dplyr)
-TW104 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW104.csv")
-TW104 <- arrange(TW104,desc(`number of visitors`))
-top10_TW104 <- TW104 [c(3,4,5,7,10,11,12,13,14,15),]
+## 觀察過去二十年(民國86年-105年/1997-2016)台灣人最常去的地方
 
-TW103 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW103.csv")
-TW103 <- arrange(TW103,desc(`number of visitors`))
-top10_TW103 <- TW103 [c(3,4,5,7,10,11,12,13,14,15),]
-
-TW102 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW102.csv")
-TW102 <- arrange(TW102,desc(`number of visitors`))
-top10_TW102 <- TW102 [c(3,4,5,7,8,9,11,13,14,15),]
-
-TW101 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW101.csv")
-TW101 <- arrange(TW101,desc(`number of visitors`))
-top10_TW101 <- TW101 [c(3,4,6,8,9,11,12,13,14,17),]
-
-TW100 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW100.csv")
-TW100 <- arrange(TW100,desc(`number of visitors`))
-top10_TW100 <- TW100 [c(3,4,6,7,10,11,12,13,16,17),]
-
-TW99 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW99.csv")
-TW99 <- arrange(TW99,desc(`number of visitors`))
-top10_TW99 <- TW99 [c(3,4,6,7,10,11,12,13,14,15),]
-
-TW98 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW98.csv")
-TW98 <- arrange(TW98,desc(`number of visitors`))
-top10_TW98 <- TW98 [c(3,4,6,7,10,11,12,13,16,17),]
-
-TW97 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW97.csv")
-TW97 <- arrange(TW97,desc(`number of visitors`))
-top10_TW97 <- TW97 [c(3,4,6,10,11,12,13,16,17,18),]
-
-TW96 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW96.csv")
-TW96 <- arrange(TW96,desc(`number of visitors`))
-top10_TW96 <- TW96 [c(2,3,4,6,7,8,9,10,12,13),]
-
-TW95 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 95-104/TW95.csv")
-TW95 <- arrange(TW95,desc(`number of visitors`))
-top10_TW95 <- TW95 [c(2,3,4,6,7,8,9,11,12,13),]
-
-top10_TW <- rbind(top10_TW95,top10_TW96,top10_TW97,top10_TW98,top10_TW99,top10_TW100,top10_TW101,top10_TW102,top10_TW103,top10_TW104)
-```
-
-Step 2. 畫成圖來觀察
+### Step 1. 將大由下載的資料依照年份分好，觀察過去20年的資料
 ```{r}
 library(readr)
 library(dplyr)
-TOP10_TW <- data.frame (c(top10_TW95$Location),c(top10_TW96$Location),c(top10_TW97$Location),c(top10_TW98$Location),c(top10_TW99$Location),c(top10_TW100$Location),c(top10_TW101$Location),c(top10_TW102$Location),c(top10_TW103$Location),c(top10_TW104$Location))
-TOP10_TW <- t(TOP10_TW)
-rownames(TOP10_TW) = 95:104
-colnames(TOP10_TW) = 1:10
-show(TOP10_TW)
 
+TW105 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW105.csv")
+TW105 <- arrange(TW105,desc(`number of visitors`))
+top10_TW105 <- TW105 [c(1:10),]
+
+TW104 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW104.csv")
+TW104 <- arrange(TW104,desc(`number of visitors`))
+top10_TW104 <- TW104 [c(3,4,5,7,10,11,12,13,14,15),]
+
+TW103 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW103.csv")
+TW103 <- arrange(TW103,desc(`number of visitors`))
+top10_TW103 <- TW103 [c(3,4,5,7,10,11,12,13,14,15),]
+
+TW102 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW102.csv")
+TW102 <- arrange(TW102,desc(`number of visitors`))
+top10_TW102 <- TW102 [c(3,4,5,7,8,9,11,13,14,15),]
+
+TW101 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW101.csv")
+TW101 <- arrange(TW101,desc(`number of visitors`))
+top10_TW101 <- TW101 [c(3,4,6,8,9,11,12,13,14,17),]
+
+TW100 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW100.csv")
+TW100 <- arrange(TW100,desc(`number of visitors`))
+top10_TW100 <- TW100 [c(3,4,6,7,10,11,12,13,16,17),]
+
+TW99 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW99.csv")
+TW99 <- arrange(TW99,desc(`number of visitors`))
+top10_TW99 <- TW99 [c(3,4,6,7,10,11,12,13,14,15),]
+
+TW98 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW98.csv")
+TW98 <- arrange(TW98,desc(`number of visitors`))
+top10_TW98 <- TW98 [c(3,4,6,7,10,11,12,13,16,17),]
+
+TW97 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW97.csv")
+TW97 <- arrange(TW97,desc(`number of visitors`))
+top10_TW97 <- TW97 [c(3,4,6,10,11,12,13,16,17,18),]
+
+TW96 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW96.csv")
+TW96 <- arrange(TW96,desc(`number of visitors`))
+top10_TW96 <- TW96 [c(2,3,4,6,8,9,10,12,13,14),]
+
+TW95 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW95.csv")
+TW95 <- arrange(TW95,desc(`number of visitors`))
+top10_TW95 <- TW95 [c(2,3,4,6,7,8,11,12,13,14),]
+
+TW94 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW94.csv")
+TW94 <- arrange(TW94,desc(`number of visitors`))
+top10_TW94 <- TW94 [c(2,3,4,6,7,10,11,12,13,14),]
+
+TW93 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW93.csv")
+TW93 <- arrange(TW93,desc(`number of visitors`))
+top10_TW93 <- TW93 [c(2,3,4,6,7,9,10,11,13,14),]
+
+TW92 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW92.csv")
+TW92 <- arrange(TW92,desc(`number of visitors`))
+top10_TW92 <- TW92 [c(2,3,4,6,7,8,9,11,13,15),]
+
+TW91 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW91.csv")
+TW91 <- arrange(TW91,desc(`number of visitors`))
+top10_TW91 <- TW91 [c(2,3,4,6,7,8,10,11,12,13),]
+
+TW90 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW90.csv")
+TW90 <- arrange(TW90,desc(`number of visitors`))
+top10_TW90 <- TW90 [c(2,3,4,6,7,8,10,11,12,13),]
+
+TW89 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW89.csv")
+TW89 <- arrange(TW89,desc(`number of visitors`))
+top10_TW89 <- TW89 [c(2,3,5,6,7,8,11,12,13,14),]
+
+TW88 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW88.csv")
+TW88 <- arrange(TW88,desc(`number of visitors`))
+top10_TW88 <- TW88 [c(2,3,5,6,8,9,10,12,13,14),]
+
+TW87 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW87.csv")
+TW87 <- arrange(TW87,desc(`number of visitors`))
+top10_TW87 <- TW87 [c(2,4,5,6,8,9,10,12,13,14),]
+
+TW86 <- read_csv("C:/Users/user/Desktop/R/Final Project/TW 86-105/TW86.csv")
+TW86 <- arrange(TW86,desc(`number of visitors`))
+top10_TW86 <- TW86 [c(2,4,5,7,8,9,10,11,12,14),]
+
+top10_TW <- rbind(top10_TW86,top10_TW87,top10_TW88,top10_TW89,top10_TW90,top10_TW91,top10_TW92,top10_TW93,top10_TW94,top10_TW95,top10_TW96,top10_TW97,top10_TW98,top10_TW99,top10_TW100,top10_TW101,top10_TW102,top10_TW103,top10_TW104,top10_TW105)
+```
+
+### Step 2. 畫成圖來觀察
+> **民國86年-105年(1997-2016) 台灣人最常去的地方前十名** (註：本資料已去除「未列名」的部分)
+
+```{r}
+library(readr)
+library(dplyr)
+library(knitr)
+TOP10_TW <- data.frame (c(top10_TW86$Location),c(top10_TW87$Location),c(top10_TW88$Location),c(top10_TW89$Location),c(top10_TW90$Location),c(top10_TW91$Location),c(top10_TW92$Location),c(top10_TW93$Location),c(top10_TW94$Location),c(top10_TW95$Location),c(top10_TW96$Location),c(top10_TW97$Location),c(top10_TW98$Location),c(top10_TW99$Location),c(top10_TW100$Location),c(top10_TW101$Location),c(top10_TW102$Location),c(top10_TW103$Location),c(top10_TW104$Location),c(top10_TW105$Location))
+TOP10_TW <- t(TOP10_TW)
+rownames(TOP10_TW) = 86:105
+colnames(TOP10_TW) = 1:10
+kable(TOP10_TW)
+```
+
+> **民國86年-105年(1997-2016) 台灣人最常去的地方人數變化圖** (註：本資料已去除「未列名」的部分)
+
+```{r}
 library(ggplot2)
 library(plotly)
 gp=ggplot(top10_TW,mapping = aes(x=Year, y=`number of visitors`))+
     geom_line(mapping = aes(color=Location))+
-    scale_x_continuous(limits=c(95,104) ,breaks=95:104)+
-    scale_y_continuous(limits=c(150000,3800000))+
-    labs(title = "95-104 台灣人最常去的國家")
+    scale_x_continuous(limits=c(86,105) ,breaks=86:105)+
+    scale_y_continuous(breaks=seq(0, 5000000, by=500000))+
+    labs(title = "86-105 台灣人最常去的地方")
     
 ggplotly(gp)
-
 ```
-發現：
-民國96年(2007)以前，台灣每年去中國的人數，甚至沒有在前十名。97年(2008)開始成為第8名<18萬>後，從98年(2009)開始，去中國的人數<151萬>暴增，相對的去港、澳的人數下降。
 
-原因待探究......(明天繼續)
-(猜測方向：直飛航班增加?) 
+> ### **觀察與發現：**
+
+#### 民國96年(2007)以前，台灣每年去中國的人數，甚至沒有在前十名。
+#### 97年(2008)開始成為第8名(約18萬人)後，從98年(2009)開始，去中國的人數(約151萬人)暴增，相對的去港、澳的人數下降。
+
+---
+
+#### 猜測可能原因：**兩岸開放直飛**
+
+---
+
+#### 說明：
+#### 過去因為兩岸政治敏感因素，並未開放兩岸直航，有許多因為工作因素需要前往中國的台灣人，大多會飛到香港後，再去中國。從香港到中國，不一定是飛機(例如若去深圳，通常會選擇從香港搭小巴去)，且不一定在到香港的同一天又前往中國。所以儘管最終目的地是中國，從台灣的出境資料看起來仍會是香港。
+
+* #### "2002年12月4日，中華民國政府通過《大陸台商春節返鄉專案》規定：
+ *只允許台灣民航業者申請在春節期間，以包機方式運載台商返台
+ *包機出發航點只限台北和高雄，抵達機場只限上海浦東國際機場或虹橋機場
+ *包機來回均須在香港或澳門作為中途停站，不准在中途站上下客
+ *乘客只能是台商及其眷屬"
+
+##### [補充說明]
+##### **包機**指的是「非定期班機」，租戶與機主訂立出租合約。包機的乘客即為租戶，除了客運包機之外，還有貨運包機。
+##### 主要包機客戶通常為：旅行社、大型企業、軍隊、救援隊、尚未簽定航約的兩地(兩岸在尚未簽定定期航約前，先以包機的形式在兩岸間載送旅客)等。
+
+* #### 2003年開始，開放在春節時段，專案容許台灣的航空公司航機，以定點、定時、定對像方式，專程接載台商往返上海和台北。(2003年1月26日，54年來中華民國航機首次合法降落大陸地區)
+* #### 不過隔年(2004年)因為陳水扁連任統統後，中國因政治因素考量，停止春節包機的協議。2005年才又恢復。
+* #### 2006年開始，春節包機乘客對象擴張到*持合法證件的台灣居民*
+
+* #### **2008年**算是個重要的轉捩點，5月12日四川發生汶川大地震，地震發生後台政府為順利讓在四川的台灣旅客盡速返台，而積極向大陸方面協商。最終達成協議，由長榮、華航、復興、華信於5月16日以包機的模式由台灣方面派出四個架次的飛機分別自成都和重慶的機場搭載旅客返台。
+
+* #### **同年的6月13日(馬英九當選總統後)，兩岸經過協商，決定開始兩岸週末包機，每週五到週一有18個航次飛行。**與先前的直航包機不同的是，**兩岸所有合法旅客皆可乘機往返**。
+
+![](C:/Users/user/Desktop/R/Final Project/Cross-strait_charters_weekends08.jpg)
+
+* #### 同年12月15日，兩岸實現真正直航(開放兩岸平日包機)，同時實現常態包機。
+![](C:/Users/user/Desktop/R/Final Project/Cross-strait_daily_charter_route_map.jpg)
+
+* #### 2009年8月31日，**開通兩岸定期航班**，班次增加至雙方合計每週270班，大陸航點亦增加至27個。
+![](C:/Users/user/Desktop/R/Final Project/直航定期化 2009.08.31.png)
+
+![](C:/Users/user/Desktop/R/Final Project/2009.09 兩岸直航單月班次次數及載客率變化圖.png)
+
+
+## <待做部分>
+分析該期間月資料~
+
 想知道多了這麼多人是為什麼? 然後大家都去做什麼? 這項結果對我們的政治、社會、經濟有沒有什麼其他影響?
-另外突然想到，這會不會是因為本資料來源是出境資料(待確定)，所以它搞不好是反應有一堆中國人從那個時間點之後大量來台灣(開放自由行?)然後又回去，所以才會突然爆大量。
 
-p.s. 感覺可以往前再做十年，看看還有沒有什麼發現
+
+
+
