@@ -8,7 +8,7 @@ output:
 
 ## 觀察過去二十年(民國86年-105年/1997-2016)台灣人最常去的地方
 
-### Step 1. 將大由下載的資料依照年份分好，觀察過去20年的資料
+#### Step 1. 將大由下載的資料依照年份分好，觀察過去20年的資料
 ```{r}
 library(readr)
 library(dplyr)
@@ -96,7 +96,7 @@ top10_TW86 <- TW86 [c(2,4,5,7,8,9,10,11,12,14),]
 top10_TW <- rbind(top10_TW86,top10_TW87,top10_TW88,top10_TW89,top10_TW90,top10_TW91,top10_TW92,top10_TW93,top10_TW94,top10_TW95,top10_TW96,top10_TW97,top10_TW98,top10_TW99,top10_TW100,top10_TW101,top10_TW102,top10_TW103,top10_TW104,top10_TW105)
 ```
 
-### Step 2. 畫成圖來觀察
+#### Step 2. 畫成圖來觀察
 > **民國86年-105年(1997-2016) 台灣人最常去的地方前十名** (註：本資料已去除「未列名」的部分)
 
 ```{r}
@@ -124,7 +124,7 @@ gp=ggplot(top10_TW,mapping = aes(x=Year, y=`number of visitors`))+
 ggplotly(gp)
 ```
 
-> ### **觀察與發現：**
+> #### **觀察與發現：**
 
 #### 民國96年(2007)以前，台灣每年去中國的人數，甚至沒有在前十名。
 #### 97年(2008)開始成為第8名(約18萬人)後，從98年(2009)開始，去中國的人數(約151萬人)暴增，相對的去港、澳的人數下降。
@@ -167,10 +167,127 @@ ggplotly(gp)
 ![](C:/Users/user/Desktop/R/Final Project/2009.09 兩岸直航單月班次次數及載客率變化圖.png)
 
 
-## <待做部分>
-分析該期間月資料~
+> ### 觀察97-99的台灣前往東亞地區(亦為前5名)的月資料
 
-想知道多了這麼多人是為什麼? 然後大家都去做什麼? 這項結果對我們的政治、社會、經濟有沒有什麼其他影響?
+```{r}
+library(readr)
+library(dplyr)
+`2008M` <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/2008M.csv")
+`2009M` <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/2009M.csv")
+`2010M` <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/2010M.csv")
+
+m2008 <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/m2008.csv")
+m2009 <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/m2009.csv")
+m2010 <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/m2010.csv")
+
+
+m2008_2010 <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/m2008_2010.csv")
+m08_10 <- read_csv("C:/Users/user/Desktop/R/Final Project/2008-2010 Month/m08_10.csv")
+m12_17 <- read_csv("C:/Users/user/Desktop/R/Final Project/2012-2017 Month/m12_17.csv")
+newm2012_2017 <- read_csv("C:/Users/user/Desktop/R/Final Project/2012-2017 Month/newm2012_2017.csv")
+
+library(ggplot2)
+library(plotly)
+gp=ggplot(m2008,mapping = aes(x=Month, y=`number of visitors`))+
+    geom_line(mapping = aes(color=Location))+
+    scale_x_continuous(limits=c(1,12) ,breaks=1:12)+
+    scale_y_continuous(breaks=seq(0, 300000, by=20000))+
+    labs(title = "民國97年(2008) 台灣人前往東亞地區月資料")
+ggplotly(gp)
+
+gp=ggplot(m2009,mapping = aes(x=Month, y=`number of visitors`))+
+    geom_line(mapping = aes(color=Location))+
+    scale_x_continuous(limits=c(1,12) ,breaks=1:12)+
+    scale_y_continuous(breaks=seq(0, 300000, by=20000))+
+    labs(title = "民國98年(2009) 台灣人前往東亞地區月資料")
+ggplotly(gp)
+
+gp=ggplot(m2010,mapping = aes(x=Month, y=`number of visitors`))+
+    geom_line(mapping = aes(color=Location))+
+    scale_x_continuous(limits=c(1,12) ,breaks=1:12)+
+    scale_y_continuous(breaks=seq(0, 300000, by=20000))+
+    labs(title = "民國99年(2010) 台灣人前往東亞地區月資料")
+ggplotly(gp)
+
+#gp=ggplot(m08_10,mapping = aes(x=Month, y=`number of visitors`))+
+    #geom_line(mapping = aes(color=Location))+
+    #scale_x_continuous(limits=c(1,36) ,breaks=1:36)+
+    #scale_y_continuous(breaks=seq(0, 300000, by=20000))+
+    #labs(title = "民國97-99年(2008-2010) 台灣人前往東亞地區月資料")
+#ggplotly(gp)
+
+mlabels=unique(m2008_2010$Month)
+m2008_2010$Month = factor(m2008_2010$Month, labels=mlabels, ordered=T)
+
+gp=ggplot(m2008_2010,mapping = aes(x=Month, y=`number of visitors`, group=Location))+
+    # geom_line() + 
+    geom_line(mapping = aes(color=Location))+
+    #scale_x_continuous(limits=c(1,36) ,breaks=1:36)+
+    scale_y_continuous(breaks=seq(0, 300000, by=20000))+
+    labs(title = "民國97-99年(2008-2010) 台灣人前往東亞地區月資料")+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplotly(gp)
+```
+
+> #### **觀察與發現：**
+
+#### **[重要時間點review]**
+#### 民國97年(2008)6月：開始兩岸週末包機
+#### 民國97年(2008)12月：開始兩岸平日包機
+#### 民國98年(2009)9月：開始兩岸定期航班
+
+---
+
+#### 觀察2008-2010的月資料，可以發現台灣人去中國大陸的人數，增長的幅度最明顯的是在2009年，尤其將三年的月資料合在一起看之後，2008年12月到2009年2月有非常驚人的成長。
+#### 除了可能受春節影響(許多台商或其親屬需要往返兩邊)外，跟2008年12月開始開放的「兩岸平日包機」，看起來也有很大的關係。雖然春節效應過了之後，單月前往大陸的人數大幅下降，但仍遠高於前一年同月的人數(以五月來說，97年人數是96的5.33倍)。
+#### 在2009年9月開放「兩岸定期航班」後，前往中國大陸的人數更是頻頻增高。
+
+---
+
+#### **那到底為什麼會增加這麼多的人去中國大陸? 而這些人又去中國大陸做了什麼呢?**
+
+#### 猜測可能原因：(1)台商不透過香港直接進中國大陸 (2)因為成本下降，所以台商更頻繁前往中國大陸。 (3)因為更方便，所以前往中國大陸旅遊人數增加。 (4)因為政策及社會氛圍，兩岸往來更加頻繁。
+
+---
+
+#### 讓我們進一步來觀察~
+
+
+> ### 觀察過去五、六年台灣最常去的地區月資料
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+mlabels=unique(newm2012_2017$Month)
+newm2012_2017$Month = factor(newm2012_2017$Month, labels=mlabels, ordered=T)
+
+gp=ggplot(newm2012_2017,mapping = aes(x=Month, y=`number of visitors`, group=Location))+
+    geom_line(mapping = aes(color=Location))+
+    scale_y_continuous(breaks=seq(0, 450000, by=30000))+
+    labs(title = "民國101-106年(2012-2017) 台灣人最常前往的地區月資料")+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplotly(gp)
+
+```
+
+> #### **觀察與發現：**
+
+#### 從這張圖，我們可以看到很多東西。
+#### 首先，讓我們先接續著前面的問題，來看看從101年(2012)到目前台灣人前往中國大陸的人數月資料變化。我們可以發現到一年當中，前往中國大陸的人數高峰約在2月、7月、10月。其中，7月、10月為雙高峰、2月為次高。
+#### 把這個pattern跟台灣最愛去的日本來比，可以很明顯的發現，7月、10月亦是台灣人前往日本最多人數的時候，但顯然7月最多、10月是次高，2月並沒有特別多人前往，反而是4、5月可以看到有較多的人前往(可能是因為花季的關係)。
+#### 因此，我們可以合理推斷出，增加的人數幅度，有顯著的原因來自台商(考量台灣的過節文化)。而對照前往香港的人數月資料，可以看見去香港的人數下降幅度並沒有去中國大陸的人數增加幅度來的高。故，我們可以推斷，前面的猜測(2)較猜測(1)合理。
+#### 此外，7月在2008-2010的那張圖中，並沒有在高峰，跟近年的結果比起來(7月最多人去)，顯然前往旅遊的人數大幅增加也是造成整體前往中國大陸人數的成長的主因。故猜測(3)應該是成立的。
+#### 至於猜測(4)，我想和大家分享一些我從高中到大學的小小觀察。(因非嚴謹的證據，故採口述)
+
+#### **其他可以從這張圖看到的東西~**
+#### 台灣人的旅遊Pattern...... (待寫)
+
+
+
+## <待做部分>
+前往中國大陸的人的年齡層，以及前往原因。
+2008-now 大陸月資料
 
 
 
